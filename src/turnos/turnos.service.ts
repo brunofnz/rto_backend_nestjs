@@ -44,7 +44,7 @@ export class TurnosService {
     const where = conditions.length > 0 ? {  OR: conditions   } : {}
     const orderBy = order ? { [order]: direction ? direction : 'desc' } : { id: 'desc' }
     const data: PaginatedResult<any> = await paginate(this.prismaService.turno, { where, orderBy, include }, { page: +page })
-    const total = await this.prismaService.turno.findMany();
+    const total = await this.prismaService.turno.findMany({ include });
     return {
       data: total?.length > 0 ? total : [],
     }
